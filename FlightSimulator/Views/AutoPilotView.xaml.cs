@@ -10,36 +10,32 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FlightSimulator
+namespace FlightSimulator.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AutoPilotView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AutoPilotView : UserControl
     {
-        public MainWindow()
+        public AutoPilotView()
         {
             InitializeComponent();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void CommandsBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void ManualView_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void AutoPilotView_Loaded(object sender, RoutedEventArgs e)
+        private void OkButton_Click(object sender, RoutedEventArgs e)
         {
 
         }
