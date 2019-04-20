@@ -12,18 +12,22 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+//
+using FlightSimulator.ViewModels;
 
 namespace FlightSimulator.Views
 {
     /// <summary>
     /// Interaction logic for UserControl1.xaml
-    /// Interaction logic for UserControl1.xaml
     /// </summary>
     public partial class ManualView : UserControl
     {
+        private ManualViewModel viewModel;
         public ManualView()
         {
             InitializeComponent();
+            viewModel = new ManualViewModel();
+            DataContext = viewModel;
         }
 
         private void Slider_ValueChanged_1(object sender, RoutedPropertyChangedEventArgs<double> e)

@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+//
+using FlightSimulator.ViewModels;
 
 namespace FlightSimulator.Views
 {
@@ -20,9 +22,13 @@ namespace FlightSimulator.Views
     /// </summary>
     public partial class AutoPilotView : UserControl
     {
+        private AutoPilotViewModel viewModel;
+
         public AutoPilotView()
         {
             InitializeComponent();
+            viewModel = new AutoPilotViewModel();
+            DataContext = viewModel;
         }
 
         private void CommandsBox_TextChanged(object sender, TextChangedEventArgs e)
