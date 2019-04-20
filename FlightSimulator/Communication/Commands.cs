@@ -11,32 +11,28 @@ namespace FlightSimulator.Communication
 {
     class Commands
     {
-        static void run(int port)
+        const int PORT_NO = 5000;
+        const string SERVER_IP = "127.0.0.1";
+        static void Main(string[] args)
         {
-            TcpListener server = new TcpListener(IPAddress.Any, port);
-            // we set our IP address as server's address, and we also set the port: 9999
+            //---data to send to the server---
+            string textToSend = DateTime.Now.ToString();
 
-            server.Start();  // this will start the server
+            //---create a TCPClient object at the IP and port no.---
+            TcpClient client = new TcpClient(SERVER_IP, PORT_NO);
+            NetworkStream nwStream = client.GetStream();
+            byte[] bytesToSend = ASCIIEncoding.ASCII.GetBytes(textToSend);
 
-            while (true)   //we wait for a connection
-            {
-                TcpClient client = server.AcceptTcpClient();  //if a connection exists, the server will accept it
+            //---send the text---
+            Console.WriteLine("Sending : " + textToSend);
+            nwStream.Write(bytesToSend, 0, bytesToSend.Length);
 
-                NetworkStream ns = client.GetStream(); //networkstream is used to send/receive messages
-
-                byte[] hello = new byte[100];   //any message must be serialized (converted to byte array)
-                hello = Encoding.Default.GetBytes("hello world");  //conversion string => byte array
-
-                ns.Write(hello, 0, hello.Length);     //sending the message
-
-                while (client.Connected)  //while the client is connected, we look for incoming messages
-                {
-                    byte[] msg = new byte[1024];     //the messages arrive as byte array
-                    ns.Read(msg, 0, msg.Length);   //the same networkstream reads the message sent by the client
-                    Console.WriteLine(Encoding.Default.GetString(msg).Trim()); //now , we write the message as string
-                }
-            }
-
+            //---read back the text---
+            byte[] bytesToRead = new byte[client.ReceiveBufferSize];
+            int bytesRead = nwStream.Read(bytesToRead, 0, client.ReceiveBufferSize);
+            Console.WriteLine("Received : " + Encoding.ASCII.GetString(bytesToRead, 0, bytesRead));
+            Console.ReadLine();
+            client.Close();
         }
     }
 }
