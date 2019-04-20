@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using FlightSimulator.Model;
 //..lk
 using FlightSimulator.Properties;
+using System.ComponentModel;
+
 namespace FlightSimulator.ViewModels
 {
     public class FlightBoardViewModel : BaseNotify
@@ -15,22 +17,22 @@ namespace FlightSimulator.ViewModels
         //..lk
         private Settings settingsWindow = new Settings();
         public event PropertyChangedEventHandler PropertyChanged;
-        public FlightboardModel(){ 
+        public FlightBoardViewModel()
+        {
             model = new FlightboardModel(); // check if needs new Info().
-            
-         }
+        }
 
-       
+
         public double Lon
         {
             get;
-            
+
         }
 
         public double Lat
         {
             get;
-            
+
         }
     }
 }
