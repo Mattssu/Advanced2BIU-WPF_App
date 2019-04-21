@@ -53,16 +53,6 @@ namespace FlightSimulator.Views
                 planeLocations.AppendAsync(Dispatcher, new Point(viewModel.Lat, viewModel.Lon));
             }
         }
-
-        private void Settings_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Connect_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 
 }

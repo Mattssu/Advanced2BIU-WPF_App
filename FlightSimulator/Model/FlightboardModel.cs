@@ -5,18 +5,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FlightSimulator.Communication;
+using FlightSimulator.ViewModels;
+
 namespace FlightSimulator.Model
 {
-    class FlightboardModel
+    class FlightboardModel : BaseNotify
     {
-        // lk
-        private Info info ;
-        public event PropertyChangedEventHandler PropertyChanged;
-        public FlightboardModel(){ this.info = info;}
-        // to finish , check if needs lon and lat.
-         public void NotifyPropertyChanged(string proertyName)
+        private Info info;
+        private double lat;
+        private double lon;
+        //constructor
+        public FlightboardModel()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(proertyName));
+            this.info = new Info();
+        }
+        //properties
+        public double Lat { get; }
+        public double Lon { get; }
+        //run server
+        public void Run()
+        {
+            //
         }
     }
 }
