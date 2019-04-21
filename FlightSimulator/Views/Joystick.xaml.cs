@@ -1,6 +1,7 @@
 ﻿using FlightSimulator.Model.EventArgs;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -142,24 +143,32 @@ namespace FlightSimulator.Views
             Point newPos = e.GetPosition(Base);
 
             Point deltaPos = new Point(newPos.X - _startPos.X, newPos.Y - _startPos.Y);
-
+            // eculeadan distance
             double distance = Math.Round(Math.Sqrt(deltaPos.X * deltaPos.X + deltaPos.Y * deltaPos.Y));
+            //if distance bigger then half the grid size
             if (distance >= canvasWidth / 2 || distance >= canvasHeight / 2)
                 return;
+            //Aileron = -delta y,Elvetor = delta x
             Aileron = -deltaPos.Y;
             Elevator = deltaPos.X;
-
+            //normalize
+            Aileron = 360 * ((Aileron + 125) / 250);
+            Elevator = 100 * ((Elevator + 125) / 250);
+            //knobX = delta x,knobY = delta y
             knobPosition.X = deltaPos.X;
             knobPosition.Y = deltaPos.Y;
+            Debug.WriteLine("Aileron : " + Convert.ToString(Aileron) + Environment.NewLine + "Elevetor : " + Convert.ToString(Elevator));
 
+            //if bigger then a step or didnt move
             if (Moved == null ||
                 (!(Math.Abs(_prevAileron - Aileron) > AileronStep) && !(Math.Abs(_prevElevator - Elevator) > ElevatorStep)))
                 return;
-
+            //if not null, invoke with the values
             Moved?.Invoke(this, new VirtualJoystickEventArgs { Aileron = Aileron, Elevator = Elevator });
+            //set as last values
             _prevAileron = Aileron;
             _prevElevator = Elevator;
-
+            //Debug.WriteLine("Chnaged value" + Environment.NewLine + "Aileron : " + Convert.ToString(Aileron) + Environment.NewLine + "Elevetor : " + Convert.ToString(Elevator));
         }
 
         private void Knob_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)

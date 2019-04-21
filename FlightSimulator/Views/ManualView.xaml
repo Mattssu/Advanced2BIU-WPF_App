@@ -35,7 +35,7 @@
                 </Label.RenderTransform>
             </Label>
             <Label Content="rudder" HorizontalAlignment="Left" Margin="166,314,0,0" VerticalAlignment="Top"/>
-            <Slider x:Name="throttleSlider" Value="{Binding Throttle,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" Maximum="1" Minimum="-1" HorizontalAlignment="Left" Margin="-38,167,0,0" VerticalAlignment="Top" Width="151" RenderTransformOrigin="0.5,0.5" ValueChanged="Slider_ValueChanged">
+            <Slider x:Name="throttleSlider" Value="{Binding Throttle,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" Maximum="1" Minimum="-1" HorizontalAlignment="Left" Margin="-38,167,0,0" VerticalAlignment="Top" Width="151" RenderTransformOrigin="0.5,0.5">
                 <Slider.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -47,7 +47,7 @@
             </Slider>
             <Slider x:Name="rudderSlider" Value="{Binding Rudder,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" Maximum="1" Minimum="-1" HorizontalAlignment="Left" Margin="105,293,0,0" VerticalAlignment="Top" Width="172" RenderTransformOrigin="0.5,0.5"  Height="21" Grid.ColumnSpan="2"/>
             <Viewbox HorizontalAlignment="Left" Height="243" Margin="60,41,0,0" VerticalAlignment="Top" Width="264" Grid.ColumnSpan="2">
-                <Views:Joystick x:Name="joystick" Height="360" Width="400" Loaded="Joystick_Loaded"/>
+                <Views:Joystick x:Name="joystick" Height="360" Width="400"/>
             </Viewbox>
         </Grid>
     </Grid>

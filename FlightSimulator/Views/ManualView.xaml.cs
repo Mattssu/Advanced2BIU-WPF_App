@@ -29,20 +29,5 @@ namespace FlightSimulator.Views
             viewModel = new ManualViewModel();
             DataContext = viewModel;
         }
-
-        private void Slider_ValueChanged_1(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-
-        }
-
-        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-
-        }
-
-        private void Joystick_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }
