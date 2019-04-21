@@ -16,34 +16,23 @@ namespace FlightSimulator.ViewModels
         private readonly string rudderPath = " /controls/flight/rudder ";
         private readonly string aileronPath = " /controls/flight/aileron ";
         private readonly string elevatorPath = " /controls/flight/elevator ";
-        //get and set (uses model to send)
+
+        //sets the value (no need to get)
         public double Throttle
         {
-            set
-            {
-                model.sendCommand("set" + throttlePath + Convert.ToString(value));
-            }
+            set { model.sendCommand("set" + throttlePath + Convert.ToString(value)); }
         }
         public double Rudder
         {
-            set
-            {
-                model.sendCommand("set" + rudderPath + Convert.ToString(value));
-            }
+            set { model.sendCommand("set" + rudderPath + Convert.ToString(value)); }
         }
         public double Aileron
         {
-            set
-            {
-                model.sendCommand("set" + aileronPath + Convert.ToString(value));
-            }
+            set { model.sendCommand("set" + aileronPath + Convert.ToString(value)); }
         }
         public double Elevetor
         {
-            set
-            {
-                model.sendCommand("set" + elevatorPath + Convert.ToString(value));
-            }
+            set { model.sendCommand("set" + elevatorPath + Convert.ToString(value)); }
         }
     }
 }

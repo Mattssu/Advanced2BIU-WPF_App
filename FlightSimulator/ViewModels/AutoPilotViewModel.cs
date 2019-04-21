@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 //
@@ -23,11 +24,11 @@ namespace FlightSimulator.ViewModels
             set
             {
                 commandsToSend = value;
-                if (!string.IsNullOrEmpty(CommandsToSend) && BackgroundColor == Brushes.White)
+                if (CommandsToSend != "" && BackgroundColor == Brushes.White)
                 {
                     BackgroundColor = Brushes.LightSalmon;
                 }
-                else if (string.IsNullOrEmpty(CommandsToSend))
+                else if (CommandsToSend == "")
                 {
                     BackgroundColor = Brushes.White;
                 }
@@ -39,7 +40,8 @@ namespace FlightSimulator.ViewModels
             set
             {
                 backgroundColor = value;
-                NotifyPropertyChanged("Background");
+                //notify the binded property
+                NotifyPropertyChanged("BackgroundColor");
             }
         }
         //constructor
@@ -60,8 +62,8 @@ namespace FlightSimulator.ViewModels
                     CommandsToSend = "";
                     NotifyPropertyChanged(CommandsToSend);
                     //sends the commands & reset color
-                    model.sendCommands(sendText);
                     BackgroundColor = Brushes.White;
+                    model.sendCommands(sendText);
                 }));
             }
         }
@@ -76,8 +78,8 @@ namespace FlightSimulator.ViewModels
                 {
                     //reset view
                     CommandsToSend = "";
-                    NotifyPropertyChanged(CommandsToSend);
                     BackgroundColor = Brushes.White;
+                    NotifyPropertyChanged(CommandsToSend);
                 }));
             }
         }

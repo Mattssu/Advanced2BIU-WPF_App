@@ -30,20 +30,5 @@ namespace FlightSimulator.Views
             viewModel = new AutoPilotViewModel();
             DataContext = viewModel;
         }
-
-        private void CommandsBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void ClearButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void OkButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }
