@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FlightSimulator.Model;
 //..lk
-using FlightSimulator.Properties;
 using System.ComponentModel;
-using FlightSimulator.Communication;
-using System.Windows.Input;
+using FlightSimulator.Model;
 using FlightSimulator.Views.Windows;
+using System.Windows.Input;
+using System.Threading;
+using FlightSimulator.Communication;
 
 namespace FlightSimulator.ViewModels
 {
@@ -17,10 +13,12 @@ namespace FlightSimulator.ViewModels
     {
         private FlightboardModel model;
         private SettingsView settingsWindow = new SettingsView();
+        private Commands clientConnect;
         //constructor
         public FlightBoardViewModel()
         {
             model = new FlightboardModel();
+            clientConnect = new Commands();
             //to keep track of updates
             model.PropertyChanged += delegate (Object sender, PropertyChangedEventArgs e)
             {
@@ -50,35 +48,35 @@ namespace FlightSimulator.ViewModels
 
         }
         #region connectButton
-        private ICommand connectButton;
-        public ICommand ConnectButton
+        private ICommand connectCommand;
+        public ICommand ConnectCommand
         {
             get
             {
-                return connectButton ?? (connectButton = new CommandHandler(() =>
+                return connectCommand ?? (connectCommand = new CommandHandler(() =>
                {
-                   model.Run();
+                   new Thread(delegate ()
+                   {
+                       //start instance of Commands client
+                       Commands.Instance.Connect(ApplicationSettingsModel.Instance.FlightServerIP, ApplicationSettingsModel.Instance.FlightCommandPort);
+                   }).Start();
+                   //start Info Server
+                   model.Run(ApplicationSettingsModel.Instance.FlightServerIP, ApplicationSettingsModel.Instance.FlightInfoPort);
+
                }));
             }
         }
         #endregion
         #region settingsButton
-        private ICommand settingsButton;
-        public ICommand SettingsButton
+        private ICommand settingsCommand;
+        public ICommand SettingsCommand
         {
             get
             {
-                return settingsButton ?? (settingsButton = new CommandHandler(() =>
+                return settingsCommand ?? (settingsCommand = new CommandHandler(() =>
                 {
-                    if (!settingsWindow.IsLoaded)
-                    {
-                        settingsWindow = new SettingsView();
-                        settingsWindow.Show();
-                    }
-                    else
-                    {
-                        settingsWindow.Show();
-                    }
+                    settingsWindow = new SettingsView();
+                    settingsWindow.Show();
                 }));
             }
         }

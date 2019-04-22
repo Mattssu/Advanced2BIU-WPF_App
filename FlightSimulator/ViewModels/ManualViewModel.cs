@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 //
 using FlightSimulator.Model;
 
@@ -20,19 +16,19 @@ namespace FlightSimulator.ViewModels
         //sets the value (no need to get)
         public double Throttle
         {
-            set { model.sendCommand("set" + throttlePath + Convert.ToString(value)); }
+            set { model.SendCommand("set" + throttlePath + Convert.ToString(value)); }
         }
         public double Rudder
         {
-            set { model.sendCommand("set" + rudderPath + Convert.ToString(value)); }
+            set { model.SendCommand("set" + rudderPath + Convert.ToString(value)); }
         }
         public double Aileron
         {
-            set { model.sendCommand("set" + aileronPath + Convert.ToString(value)); }
+            set { model.SendCommand("set" + aileronPath + Convert.ToString(value)); }
         }
         public double Elevetor
         {
-            set { model.sendCommand("set" + elevatorPath + Convert.ToString(value)); }
+            set { model.SendCommand("set" + elevatorPath + Convert.ToString(value)); }
         }
     }
 }

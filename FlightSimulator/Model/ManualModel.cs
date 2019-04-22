@@ -1,23 +1,21 @@
 ﻿using FlightSimulator.Communication;
 using FlightSimulator.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FlightSimulator.Model
 {
     class ManualModel : BaseNotify
     {
-        private Commands commands;
-        public ManualModel()
+        public void SendCommand(string data)
         {
-            commands = new Commands();
-        }
-        public void sendCommand(string data)
-        {
-            //TODO
+            if (Commands.Instance.IsConnected)
+            {
+                new Thread(delegate ()
+                {
+                    Commands.Instance.SendCommands(data);
+                }).Start();
+            }
         }
     }
 }

@@ -1,26 +1,20 @@
 ﻿using FlightSimulator.Communication;
 using FlightSimulator.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace FlightSimulator.Model
 {
     class AutoPilotModel : BaseNotify
     {
-        private Commands commands;
-
-        public AutoPilotModel()
+        public void SendCommand(string data)
         {
-            //Fix server
-            commands = new Commands();
-        }
-
-        public void sendCommands(string data)
-        {
-            //send commands to Commands client
+            if (Commands.Instance.IsConnected)
+            {
+                new Thread(delegate ()
+                {
+                    Commands.Instance.SendCommands(data);
+                }).Start();
+            }
         }
     }
 }

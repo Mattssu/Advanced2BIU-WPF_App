@@ -1,38 +1,67 @@
 ﻿using System;
+using System.Text;
+using System.Net.Sockets;
+using System.Net;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using System.Net;      //required
-using System.Net.Sockets;
 
 namespace FlightSimulator.Communication
 {
     class Commands
     {
-        const int PORT_NO = 5000;
-        const string SERVER_IP = "127.0.0.1";
-        static void run(string[] args)
+        private TcpClient client;
+        private BinaryWriter writer;
+        public bool IsConnected { get; set; } = false;
+        //the singelton implemented from AppSettingsModel
+        #region Singleton
+        private static Commands m_Instance = null;
+        public static Commands Instance
         {
-            //---data to send to the server---
-            string textToSend = DateTime.Now.ToString();
-
-            //---create a TCPClient object at the IP and port no.---
-            TcpClient client = new TcpClient(SERVER_IP, PORT_NO);
-            NetworkStream nwStream = client.GetStream();
-            byte[] bytesToSend = ASCIIEncoding.ASCII.GetBytes(textToSend);
-
-            //---send the text---
-            Console.WriteLine("Sending : " + textToSend);
-            nwStream.Write(bytesToSend, 0, bytesToSend.Length);
-
-            //---read back the text---
-            byte[] bytesToRead = new byte[client.ReceiveBufferSize];
-            int bytesRead = nwStream.Read(bytesToRead, 0, client.ReceiveBufferSize);
-            Console.WriteLine("Received : " + Encoding.ASCII.GetString(bytesToRead, 0, bytesRead));
-            Console.ReadLine();
-            client.Close();
+            get
+            {
+                if (m_Instance == null)
+                {
+                    m_Instance = new Commands();
+                }
+                return m_Instance;
+            }
         }
+        #endregion
+        //all the running client features
+        #region Client
+        public void Connect(string ip, int port)
+        {
+            IPEndPoint ep = new IPEndPoint(IPAddress.Parse(ip), port);
+            this.client = new TcpClient();
+            while (!IsConnected)
+            {
+                try
+                {
+                    client.Connect(ep);
+                }
+                catch (Exception) { }
+            }
+            IsConnected = true;
+            writer = new BinaryWriter(client.GetStream());
+        }
+        public void Disconnect()
+        {
+            client.Close();
+            m_Instance = null;
+        }
+        public void SendCommands(string data)
+        {
+            // Send data to server
+            List<string> result = data.Split('\n').ToList();
+            //sends command every 2 sec
+            foreach (var x in result)
+            {
+                string tmp = x + "\r\n";
+                writer.Write(System.Text.Encoding.ASCII.GetBytes(tmp));
+                System.Threading.Thread.Sleep(2000);
+            }
+        }
+        #endregion
     }
 }
