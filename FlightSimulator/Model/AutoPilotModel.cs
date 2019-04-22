@@ -6,7 +6,7 @@ namespace FlightSimulator.Model
 {
     class AutoPilotModel : BaseNotify
     {
-        public void SendCommand(string data)
+        public void SendCommands(string data)
         {
             if (Commands.Instance.IsConnected)
             {

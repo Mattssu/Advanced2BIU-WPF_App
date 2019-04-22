@@ -57,7 +57,7 @@ namespace FlightSimulator.ViewModels
                     NotifyPropertyChanged(CommandsToSend);
                     //sends the commands & reset color
                     BackgroundColor = Brushes.White;
-                    model.sendCommands(sendText);
+                    model.SendCommands(sendText);
                 }));
             }
         }
