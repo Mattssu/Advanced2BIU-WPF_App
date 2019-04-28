@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using FlightSimulator.Communication;
+using System.ComponentModel;
+using System.Windows;
 
 namespace FlightSimulator
 {
@@ -11,25 +13,11 @@ namespace FlightSimulator
         {
             InitializeComponent();
         }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        //in over to disconnect properly
+        protected override void OnClosing(CancelEventArgs e)
         {
-
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ManualView_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void AutoPilotView_Loaded(object sender, RoutedEventArgs e)
-        {
-
+            Info.Instance.Disconnect();
+            base.OnClosing(e);
         }
     }
 }

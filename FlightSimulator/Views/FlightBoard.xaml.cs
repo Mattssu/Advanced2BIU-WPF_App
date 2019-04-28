@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using FlightSimulator.ViewModels;
@@ -13,15 +14,15 @@ namespace FlightSimulator.Views
     /// </summary>
     public partial class FlightBoard : UserControl
     {
-        private FlightBoardViewModel viewModel;
+        private FlightBoardViewModel vm;
         ObservableDataSource<Point> planeLocations = null;
         public FlightBoard()
         {
             InitializeComponent();
-            viewModel = new FlightBoardViewModel();
-            DataContext = viewModel;
+            vm = new FlightBoardViewModel();
+            DataContext = vm;
             //add to eventhandler
-            viewModel.PropertyChanged += Vm_PropertyChanged;
+            vm.PropertyChanged += Vm_PropertyChanged;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -37,7 +38,9 @@ namespace FlightSimulator.Views
         {
             if (e.PropertyName.Equals("Lat") || e.PropertyName.Equals("Lon"))
             {
-                planeLocations.AppendAsync(Dispatcher, new Point(viewModel.Lat, viewModel.Lon));
+                Point p = new Point(vm.Lat, vm.Lon);
+                //Debug.WriteLine(p.ToString());
+                planeLocations.AppendAsync(Dispatcher, p);
             }
         }
     }

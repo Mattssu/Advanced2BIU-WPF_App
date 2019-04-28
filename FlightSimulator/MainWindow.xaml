@@ -11,11 +11,11 @@
         <Label Content="Flight Simulator" Margin="316,0,320,0" VerticalAlignment="Top" Width="156" Foreground="#FF98159E" FontWeight="Bold" FontStyle="Italic" FontSize="18" HorizontalAlignment="Center"/>
         <TabControl HorizontalAlignment="Left" Height="365" Margin="397,39,0,0" VerticalAlignment="Top" Width="385">
             <TabItem Header="Manual">
-                <Views:ManualView Loaded="ManualView_Loaded" Margin="0,-1,9,1"/>
+                <Views:ManualView Margin="0,-1,9,1"/>
             </TabItem>
             <TabItem Header="Auto Pilot">
                 <Grid Background="#FFE5E5E5">
-                    <Views:AutoPilotView HorizontalAlignment="Left" Height="337" VerticalAlignment="Top" Width="379" Loaded="AutoPilotView_Loaded"/>
+                    <Views:AutoPilotView HorizontalAlignment="Left" Height="337" VerticalAlignment="Top" Width="379"/>
                 </Grid>
             </TabItem>
         </TabControl>

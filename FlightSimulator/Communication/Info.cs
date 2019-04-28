@@ -65,9 +65,17 @@ namespace FlightSimulator.Communication
         }
         public void Disconnect()
         {
-            //reset everything
-            client.Close();
-            server.Stop();
+            //If was exited
+            if (client != null && client.Connected)
+            {
+                client.Close();
+            }
+
+            //If running
+            if (IsRunning)
+            {
+                server.Stop();
+            }
             IsRunning = false;
             IsConnected = false;
             m_Instance = null;

@@ -1,5 +1,4 @@
 ﻿using System;
-//
 using FlightSimulator.Model;
 
 namespace FlightSimulator.ViewModels
@@ -7,13 +6,13 @@ namespace FlightSimulator.ViewModels
     class ManualViewModel : BaseNotify
     {
         private ManualModel model = new ManualModel();
-        //Paths to appropriate data in the Simulator
+        //Paths to data in simulator
         private readonly string throttlePath = " /controls/engines/current-engine/throttle ";
         private readonly string rudderPath = " /controls/flight/rudder ";
         private readonly string aileronPath = " /controls/flight/aileron ";
         private readonly string elevatorPath = " /controls/flight/elevator ";
-
         //sets the value (no need to get)
+        #region Properties
         public double Throttle
         {
             set { model.SendCommand("set" + throttlePath + Convert.ToString(value)); }
@@ -30,5 +29,6 @@ namespace FlightSimulator.ViewModels
         {
             set { model.SendCommand("set" + elevatorPath + Convert.ToString(value)); }
         }
+        #endregion
     }
 }

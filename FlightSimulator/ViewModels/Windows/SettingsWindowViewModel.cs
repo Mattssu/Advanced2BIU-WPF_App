@@ -1,5 +1,6 @@
 ﻿using FlightSimulator.Model;
 using FlightSimulator.Model.Interface;
+using System.Windows;
 using System.Windows.Input;
 
 namespace FlightSimulator.ViewModels.Windows
@@ -7,10 +8,13 @@ namespace FlightSimulator.ViewModels.Windows
     public class SettingsWindowViewModel : BaseNotify
     {
         private ISettingsModel model;
+        private Window w;
 
-        public SettingsWindowViewModel()
+
+        public SettingsWindowViewModel(Window w)
         {
             this.model = new ApplicationSettingsModel();
+            this.w = w;
         }
 
         public string FlightServerIP
@@ -62,7 +66,11 @@ namespace FlightSimulator.ViewModels.Windows
         {
             get
             {
-                return _clickCommand ?? (_clickCommand = new CommandHandler(() => OnClick()));
+                return _clickCommand ?? (_clickCommand = new CommandHandler(() => {
+                    //Close the settings window without saving
+                    w.Close();
+                    model.SaveSettings();
+                }));
             }
         }
         private void OnClick()
@@ -77,7 +85,11 @@ namespace FlightSimulator.ViewModels.Windows
         {
             get
             {
-                return _cancelCommand ?? (_cancelCommand = new CommandHandler(() => OnCancel()));
+                return _cancelCommand ?? (_cancelCommand = new CommandHandler(() => {
+                    //Close the settings window without saving
+                    w.Close();
+                    model.ReloadSettings();
+                }));
             }
         }
         private void OnCancel()

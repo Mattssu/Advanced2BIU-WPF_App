@@ -15,6 +15,8 @@ namespace FlightSimulator.ViewModels
         private FlightboardModel model;
         private SettingsView settingsWindow = new SettingsView();
         #region Lat&Lon Logic
+        private double lon;
+        private double lat;
         //constructor
         public FlightBoardViewModel()
         {
@@ -26,7 +28,7 @@ namespace FlightSimulator.ViewModels
                 {
                     Lat = model.Lat;
                 }
-                else if (e.PropertyName == "Lon")
+                if (e.PropertyName == "Lon")
                 {
                     Lon = model.Lon;
                 }
@@ -34,17 +36,32 @@ namespace FlightSimulator.ViewModels
                 NotifyPropertyChanged(e.PropertyName);
             };
         }
+
         //properties
         public double Lon
         {
-            get;
-            set;
+            get
+            {
+                return lon;
+            }
+            set
+            {
+                lon = value;
+                NotifyPropertyChanged("Lon");
+            }
 
         }
         public double Lat
         {
-            get;
-            set;
+            get
+            {
+                return lat;
+            }
+            set
+            {
+                lat = value;
+                NotifyPropertyChanged("Lat");
+            }
 
         }
         #endregion

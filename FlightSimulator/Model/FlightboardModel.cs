@@ -11,6 +11,7 @@ namespace FlightSimulator.Model
         private Info info;
         private double lat;
         private double lon;
+        //private int bothChanged = 0;
         //constructor
         public FlightboardModel()
         {
@@ -25,8 +26,11 @@ namespace FlightSimulator.Model
             }
             set
             {
+
                 lat = value;
                 NotifyPropertyChanged("Lat");
+
+
             }
         }
         public double Lon
@@ -37,8 +41,10 @@ namespace FlightSimulator.Model
             }
             set
             {
+
                 lon = value;
                 NotifyPropertyChanged("Lon");
+
             }
         }
         //run server
@@ -51,6 +57,7 @@ namespace FlightSimulator.Model
         {
             new Task(delegate ()
             {
+                //bool isFirst = true;
                 while (info.IsRunning)
                 {
                     string[] param = info.ReadData();
@@ -59,14 +66,6 @@ namespace FlightSimulator.Model
                     Lat = Convert.ToDouble(param[1]);
                 }
             }).Start();
-        }
-        public bool IsRunning()
-        {
-            return info.IsRunning;
-        }
-        public void TurnOff()
-        {
-            info.Disconnect();
         }
     }
 }

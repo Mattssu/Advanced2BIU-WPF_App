@@ -11,7 +11,7 @@ namespace FlightSimulator.ViewModels
         private AutoPilotModel model;
         private string commandsToSend;
         private Brush backgroundColor = Brushes.White;
-        //properties
+        #region Properties
         public string CommandsToSend
         {
             get { return commandsToSend; }
@@ -38,6 +38,7 @@ namespace FlightSimulator.ViewModels
                 NotifyPropertyChanged("BackgroundColor");
             }
         }
+        #endregion
         //constructor
         public AutoPilotViewModel()
         {
@@ -78,6 +79,5 @@ namespace FlightSimulator.ViewModels
             }
         }
         #endregion
-
     }
 }
