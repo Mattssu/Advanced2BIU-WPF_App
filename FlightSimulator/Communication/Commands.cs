@@ -5,6 +5,7 @@ using System.Net;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+using System.Diagnostics;
 
 namespace FlightSimulator.Communication
 {
@@ -34,7 +35,9 @@ namespace FlightSimulator.Communication
         {
             IPEndPoint ep = new IPEndPoint(IPAddress.Parse(ip), port);
             this.client = new TcpClient();
-            while (!IsConnected)
+            //check if got connected
+            //Debug.WriteLine("Trying to Connect");
+            while (!client.Connected)
             {
                 try
                 {
@@ -42,6 +45,7 @@ namespace FlightSimulator.Communication
                 }
                 catch (Exception) { }
             }
+            //Console.WriteLine("You are connected");
             IsConnected = true;
             writer = new BinaryWriter(client.GetStream());
         }
@@ -52,6 +56,11 @@ namespace FlightSimulator.Communication
         }
         public void SendCommands(string data)
         {
+            //incase of empty Autopilot input
+            if (data == "")
+            {
+                return;
+            }
             // Send data to server
             List<string> result = data.Split('\n').ToList();
             //sends command every 2 sec
@@ -59,6 +68,7 @@ namespace FlightSimulator.Communication
             {
                 string tmp = x + "\r\n";
                 writer.Write(System.Text.Encoding.ASCII.GetBytes(tmp));
+                writer.Flush();
                 System.Threading.Thread.Sleep(2000);
             }
         }

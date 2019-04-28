@@ -10,21 +10,11 @@
     <Grid>
         <Grid Background="White" HorizontalAlignment="Left" Height="360" VerticalAlignment="Top" Width="370">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="137*"/>
-                <ColumnDefinition Width="48*"/>
+                <ColumnDefinition Width="281*"/>
+                <ColumnDefinition Width="89*"/>
             </Grid.ColumnDefinitions>
-            <Label Content="aileron" HorizontalAlignment="Left" Margin="166,10,0,0" VerticalAlignment="Top"/>
-            <Label Content="elevator" HorizontalAlignment="Left" Margin="48,166,-10,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="58" Grid.Column="1">
-                <Label.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="90"/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Label.RenderTransform>
-            </Label>
-            <Label Content="throttle" HorizontalAlignment="Left" Margin="-3,163,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.52,1.673">
+            <Label Content="← aileron →" HorizontalAlignment="Left" Margin="155,10,0,0" VerticalAlignment="Top" Height="26" Width="78"/>
+            <Label Content="← throttle →" HorizontalAlignment="Left" Margin="-19,166,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.52,1.673" Height="26" Width="79">
                 <Label.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -34,21 +24,45 @@
                     </TransformGroup>
                 </Label.RenderTransform>
             </Label>
-            <Label Content="rudder" HorizontalAlignment="Left" Margin="166,314,0,0" VerticalAlignment="Top"/>
-            <Slider x:Name="throttleSlider" Value="{Binding Throttle,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" Maximum="1" Minimum="-1" HorizontalAlignment="Left" Margin="-38,167,0,0" VerticalAlignment="Top" Width="151" RenderTransformOrigin="0.5,0.5">
+            <Label Content="← elevator →" HorizontalAlignment="Left" Margin="27,166,-17,0" VerticalAlignment="Top" RenderTransformOrigin="0.52,1.673" Grid.Column="1" Width="79" Height="26">
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="90"/>
+                        <TranslateTransform X="-31.478" Y="-29.518"/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
+            <Label Content="← rudder →" HorizontalAlignment="Left" Margin="155,319,0,0" VerticalAlignment="Top" Height="26" Width="77"/>
+            <Slider x:Name="throttleSlider" Value="{Binding Throttle,UpdateSourceTrigger=PropertyChanged}" Maximum="1" Minimum="-1" HorizontalAlignment="Left" Ticks="-1, 0 ,1" TickPlacement="BottomRight" Margin="-38,169,0,0" VerticalAlignment="Top" Width="156" RenderTransformOrigin="0.5,0.5" Height="19">
                 <Slider.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="270.0"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Slider.RenderTransform>
+            </Slider>
+            <Slider x:Name="rudderSlider" Value="{Binding Rudder,UpdateSourceTrigger=PropertyChanged}" Maximum="1" Minimum="-1" Margin="106,294,10,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5"  Ticks="-1, 0 ,1" TickPlacement="BottomRight" Height="25"/>
+            <Viewbox HorizontalAlignment="Left" Height="243" Margin="60,41,0,0" VerticalAlignment="Top" Width="264" Grid.ColumnSpan="2">
+                <Views:Joystick x:Name="joystick" Height="360" Width="400" Aileron="{Binding ElementName=A_Text, Path=Content, Mode=OneWayToSource}"
+                            Elevator="{Binding ElementName=E_Text, Path=Content, Mode=OneWayToSource}"/>
+            </Viewbox>
+            <Label Name="A_Text" ContentStringFormat="N2" Content="{Binding Aileron, UpdateSourceTrigger=PropertyChanged ,Mode=OneWayToSource}" HorizontalAlignment="Left" Margin="38,10,0,0" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="41"/>
+            <Label Name="E_Text" ContentStringFormat="N2" Content="{Binding Elevator, UpdateSourceTrigger=PropertyChanged , Mode=OneWayToSource}" HorizontalAlignment="Left" Margin="45,56,0,0" VerticalAlignment="Top" Grid.Column="1" Height="26" Width="42" RenderTransformOrigin="0.5,0.5">
+                <Label.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
                         <SkewTransform/>
                         <RotateTransform Angle="90"/>
                         <TranslateTransform/>
                     </TransformGroup>
-                </Slider.RenderTransform>
-            </Slider>
-            <Slider x:Name="rudderSlider" Value="{Binding Rudder,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}" Maximum="1" Minimum="-1" HorizontalAlignment="Left" Margin="105,293,0,0" VerticalAlignment="Top" Width="172" RenderTransformOrigin="0.5,0.5"  Height="21" Grid.ColumnSpan="2"/>
-            <Viewbox HorizontalAlignment="Left" Height="243" Margin="60,41,0,0" VerticalAlignment="Top" Width="264" Grid.ColumnSpan="2">
-                <Views:Joystick x:Name="joystick" Height="360" Width="400"/>
-            </Viewbox>
+                </Label.RenderTransform>
+            </Label>
+            <Label ContentStringFormat="N1" Content="{Binding ElementName=rudderSlider,Path=Value}" Grid.Column="1" HorizontalAlignment="Left" Margin="0,289,0,0" VerticalAlignment="Top" Width="34"/>
+            <Label ContentStringFormat="N1" Content="{Binding ElementName=throttleSlider,Path=Value}" HorizontalAlignment="Left" Margin="21,72,0,0" VerticalAlignment="Top" Width="34"/>
         </Grid>
     </Grid>
 </UserControl>

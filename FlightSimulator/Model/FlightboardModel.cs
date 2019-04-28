@@ -1,6 +1,7 @@
 ﻿using FlightSimulator.Communication;
 using FlightSimulator.ViewModels;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace FlightSimulator.Model
@@ -50,9 +51,10 @@ namespace FlightSimulator.Model
         {
             new Task(delegate ()
             {
-                while (!info.IsRunning)
+                while (info.IsRunning)
                 {
                     string[] param = info.ReadData();
+                    //todo wait for both at first
                     Lon = Convert.ToDouble(param[0]);
                     Lat = Convert.ToDouble(param[1]);
                 }

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:FlightSimulator"
         xmlns:Views="clr-namespace:FlightSimulator.Views" x:Class="FlightSimulator.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="FlightSimulator by Tamir and Liran" Height="450" Width="800">
     <Grid>
         <Label Content="Flight Simulator" Margin="316,0,320,0" VerticalAlignment="Top" Width="156" Foreground="#FF98159E" FontWeight="Bold" FontStyle="Italic" FontSize="18" HorizontalAlignment="Center"/>
         <TabControl HorizontalAlignment="Left" Height="365" Margin="397,39,0,0" VerticalAlignment="Top" Width="385">

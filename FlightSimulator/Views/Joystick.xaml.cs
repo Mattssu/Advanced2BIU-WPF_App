@@ -142,8 +142,8 @@ namespace FlightSimulator.Views
             Aileron = -deltaPos.Y;
             Elevator = deltaPos.X;
             //normalize
-            Aileron = 360 * ((Aileron + 125) / 250);
-            Elevator = 100 * ((Elevator + 125) / 250);
+            Aileron = 2 * ((Aileron + 125) / 250) - 1;
+            Elevator = 2 * ((Elevator + 125) / 250) - 1;
             //knobX = delta x,knobY = delta y
             knobPosition.X = deltaPos.X;
             knobPosition.Y = deltaPos.Y;

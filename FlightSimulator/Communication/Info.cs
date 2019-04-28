@@ -4,6 +4,7 @@ using System.Text;
 using System.Net;      //required
 using System.Net.Sockets;
 using System.IO;
+using System.Diagnostics;
 
 namespace FlightSimulator.Communication
 {
@@ -33,6 +34,7 @@ namespace FlightSimulator.Communication
         {
             IPEndPoint ep = new IPEndPoint(IPAddress.Parse(ip), port);
             server = new TcpListener(ep);
+            //check if running
             if (!IsRunning)
             {
                 server.Start();
@@ -42,11 +44,12 @@ namespace FlightSimulator.Communication
         public string[] ReadData()
         {
             //check if can connect
-            if (!IsConnected)
+            while (!IsConnected)
             {
                 this.client = server.AcceptTcpClient();
                 reader = new BinaryReader(client.GetStream());
                 IsConnected = true;
+                //Debug.WriteLine("Connected");
             }
             //loop to read till first \n
             string dataRead = "";
@@ -62,6 +65,7 @@ namespace FlightSimulator.Communication
         }
         public void Disconnect()
         {
+            //reset everything
             client.Close();
             server.Stop();
             IsRunning = false;

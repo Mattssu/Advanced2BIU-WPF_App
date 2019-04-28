@@ -6,6 +6,7 @@ using FlightSimulator.Views.Windows;
 using System.Windows.Input;
 using System.Threading;
 using FlightSimulator.Communication;
+using System.Diagnostics;
 
 namespace FlightSimulator.ViewModels
 {
@@ -13,12 +14,11 @@ namespace FlightSimulator.ViewModels
     {
         private FlightboardModel model;
         private SettingsView settingsWindow = new SettingsView();
-        private Commands clientConnect;
+        #region Lat&Lon Logic
         //constructor
         public FlightBoardViewModel()
         {
             model = new FlightboardModel();
-            clientConnect = new Commands();
             //to keep track of updates
             model.PropertyChanged += delegate (Object sender, PropertyChangedEventArgs e)
             {
@@ -47,6 +47,7 @@ namespace FlightSimulator.ViewModels
             set;
 
         }
+        #endregion
         #region connectButton
         private ICommand connectCommand;
         public ICommand ConnectCommand
